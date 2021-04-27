@@ -33,6 +33,7 @@ jobs:
       - name: Install dependencies from the pipfile.lock
         run: |
           pipenv sync --dev
+          pipenv shell
 
       - name: Run all tests
         run: |
