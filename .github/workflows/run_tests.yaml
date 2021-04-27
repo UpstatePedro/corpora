@@ -30,9 +30,9 @@ jobs:
           pip install pipenv
           python --version; pip --version; pipenv --version
 
-      - name: Install dependencies
+      - name: Install dependencies from the pipfile.lock
         run: |
-          pipenv install --dev --deploy
+          pipenv sync --dev
 
       - name: Run all tests
         run: |
