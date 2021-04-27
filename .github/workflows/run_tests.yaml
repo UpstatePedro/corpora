@@ -1,0 +1,40 @@
+# Workflow to run tests using the latest pipenv environment
+
+name: Run tests
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9]
+
+    steps:
+
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Setup Python version ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install pipenv
+        run: |
+          pip install --upgrade pip
+          pip install pipenv
+          python --version; pip --version; pipenv --version
+
+      - name: Install dependencies
+        run: |
+          pipenv install --dev --deploy
+
+      - name: Run all tests
+        run: |
+          pytest --cov=src
+
