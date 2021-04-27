@@ -1,0 +1,1 @@
+This is some text. It has multiple sentences. It also has many copies of several words: bla, bla, bla, raa, raa, raa.
