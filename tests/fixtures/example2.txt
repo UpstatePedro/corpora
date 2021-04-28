@@ -1,0 +1,1 @@
+This is another example. Now we can handle multiple files. Brilliant!
