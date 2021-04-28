@@ -13,3 +13,6 @@ nltk = "*"
 
 [requires]
 python_version = "3.9"
+
+[scripts]
+download-nltk-punkt = "python -c \"import nltk; nltk.download('punkt')\""
