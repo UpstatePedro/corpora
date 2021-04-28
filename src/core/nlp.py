@@ -13,24 +13,23 @@ class TxtFileTokeniser:
     def __init__(self, target_dir: Union[str, pathlib.Path], filename_pattern: str = None):
         self._target_dir = pathlib.Path(target_dir)
         self._filename_pattern = filename_pattern if filename_pattern else '.*'
-        # Not using dependency injection here because this class is intended to be tightly coupled with the nltk reader
         self._corpus = PlaintextCorpusReader(str(self._target_dir), self._filename_pattern)
+        self._corpus_files = self._corpus.fileids()
 
-    @property
-    def raw_text(self):
+    def raw_text(self, filenames: list[str] = None):
         """Returns the raw text contained within the corpus"""
-        return self._corpus.raw()
+        return self._corpus.raw(fileids=filenames)
 
-    @property
-    def complete_sentences(self):
+    def complete_sentences(self, filenames: list[str] = None):
         """Returns the text contained within the corpus in the form of a list of sentences,
         where each sentence is a single string"""
-        return nltk.sent_tokenize(self._corpus.raw())
+        return nltk.sent_tokenize(self._corpus.raw(fileids=filenames))
 
-    @property
-    def tokenised_sentences(self):
-        return self._corpus.sents()
+    def tokenised_sentences(self, filenames: list[str] = None):
+        """Returns the text contained within the corpus in the form of a list of sentences,
+        where each sentence is a list of word strings"""
+        return self._corpus.sents(fileids=filenames)
 
-    @property
-    def tokenised_words(self):
-        return self._corpus.words()
+    def tokenised_words(self, filenames: list[str] = None):
+        """Returns the text contained within a corpus in the form of a list of words"""
+        return self._corpus.words(fileids=filenames)
