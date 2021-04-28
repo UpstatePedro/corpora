@@ -4,6 +4,8 @@ Provides the standard API through which ingestion, processing & formatting logic
 """
 from typing import Union
 import pathlib
+import os
+from src.core.aggregation import WordFrequencyCalculator
 
 
 def summarise_directory(target_dir: Union[str, pathlib.Path], limit: int = 5) -> tuple:
@@ -35,6 +37,7 @@ def summarise_directory(target_dir: Union[str, pathlib.Path], limit: int = 5) ->
     :return: tuple summary of the top words found in the text located in the specified directory
     """
     # List the documents
+    filenames = os.listdir(target_dir)
     files = ['fixtures/example.txt']
     # Read a document
     file_text = "This is some text. It has multiple sentences. It also has many copies of several words: bla, bla, bla, raa, raa, raa."
@@ -62,18 +65,9 @@ def summarise_directory(target_dir: Union[str, pathlib.Path], limit: int = 5) ->
         ]
     }
     # Aggregate the word summaries and collate the output
-
-    return (
-        {
-            'word': 'bla',
-            'documents': {
-                'example.txt': ["It also has many copies of several words: bla, bla, bla, raa, raa, raa."]
-            }
-        },
-        {
-            'word': 'raa',
-            'documents': {
-                'example.txt': ["It also has many copies of several words: bla, bla, bla, raa, raa, raa."]
-            }
-        }
+    wf_calculator = WordFrequencyCalculator(
+        document_sentences=sentences,
+        document_words=words
     )
+    wf_summary = wf_calculator.summarise(limit=2)
+    return wf_summary
