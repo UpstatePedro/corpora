@@ -27,6 +27,7 @@ def test_most_common():
     ]
     assert expected == actual
 
+
 ################################################
 #   Tests for WordFrequencyCalculator
 ################################################
@@ -49,8 +50,8 @@ def test_initialisation():
         ]
     }
     calculator = WordFrequencyCalculator(
-        document_sentences=sentences,
-        document_words=words,
+        sentences_by_document=sentences,
+        words_by_document=words,
     )
     actual = calculator.summarise(limit=2)
 
@@ -73,17 +74,16 @@ def test_initialisation():
 
 
 def test_combine_word_bags():
-    sentences = {} # Not relevant to this test
+    sentences = {}  # Not relevant to this test
     words = {
         0: ['one'],
         1: ['two', 'three'],
         2: ['four']
     }
     calculator = WordFrequencyCalculator(
-        document_sentences=sentences,
-        document_words=words,
+        sentences_by_document=sentences,
+        words_by_document=words,
     )
     actual = calculator._combine_word_bags()
     expected = ['one', 'two', 'three', 'four']
     assert expected == actual
-

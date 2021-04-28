@@ -16,6 +16,10 @@ class TxtFileTokeniser:
         self._corpus = PlaintextCorpusReader(str(self._target_dir), self._filename_pattern)
         self._corpus_files = self._corpus.fileids()
 
+    @property
+    def corpus_files(self):
+        return self._corpus_files
+
     def raw_text(self, filenames: list[str] = None):
         """Returns the raw text contained within the corpus"""
         return self._corpus.raw(fileids=filenames)

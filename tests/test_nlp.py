@@ -1,5 +1,7 @@
 from src.core.nlp import TxtFileTokeniser
 import pytest
+
+
 #################################
 #   TxtFileTokeniser
 #################################
@@ -14,7 +16,7 @@ def tokeniser():
 
 def test_filenames(tokeniser):
     expectation = ['example.txt', 'example2.txt']
-    actual = tokeniser._corpus_files
+    actual = tokeniser.corpus_files
     assert expectation == actual
 
 
