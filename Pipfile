@@ -6,8 +6,10 @@ verify_ssl = true
 [dev-packages]
 pytest = "*"
 pytest-cov = "*"
+ipython = "*"
 
 [packages]
+nltk = "*"
 
 [requires]
 python_version = "3.9"
