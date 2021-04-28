@@ -10,6 +10,8 @@ This project uses [pipenv](https://pipenv.pypa.io/en/latest/) to manage python d
 
 TODO: install command
 
+run $ import nltk; nltk.download('punkt')
+
 ### Environment variables
 
 This project uses the `python-dotenv` package to manage environment variables with ease.
