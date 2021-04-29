@@ -2,9 +2,9 @@
 Orchestration logic for processing text documents.
 Provides the standard API through which ingestion, processing & formatting logic should be called.
 """
-from typing import Union, Any
 import pathlib
-import os
+from typing import Union
+
 from src.core.aggregation import WordFrequencyCalculator
 from src.core.nlp import TxtFileTokeniser
 
@@ -41,6 +41,8 @@ def summarise_directory(target_dir: Union[str, pathlib.Path], limit: int = 5) ->
         }
     )
 
+    :param target_dir: The directory from which to read the text files for summarisation
+    :param limit: The number of words to include in the results (sorted in order of frequency of occurrence)
     :return: tuple summary of the top words found in the text located in the specified directory
     """
     complete_sentences = {}
@@ -54,6 +56,9 @@ def summarise_directory(target_dir: Union[str, pathlib.Path], limit: int = 5) ->
         word_tokens = tokeniser.tokenised_words(filenames=[filename])
         # Remove punctuation tokens from each word bag (assume we do not want these in the results):
         alphanumeric_words = [word for word in word_tokens if word.isalnum()]
+        # TODO: Need to remove stop words:
+        # from nltk.corpus import stopwords
+        # stopwords.words('english')
         words.update({filename: alphanumeric_words})
 
     # Aggregate the word summaries and collate the output

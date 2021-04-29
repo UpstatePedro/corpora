@@ -1,12 +1,12 @@
 import pytest
 
-from src.core import orchestrator
+from src.core import orchestration
 
 
 def test_summarise_directory():
     """Returns a summary representation of the text found in the directory provided"""
     target_dir = "tests/fixtures/"
-    actual = orchestrator.summarise_directory(target_dir, limit=2)
+    actual = orchestration.summarise_directory(target_dir, limit=2)
     expected = (
         {
             'word': 'bla',
