@@ -3,15 +3,28 @@ from src.core.aggregation import WordFrequencyCalculator
 
 
 def test_word_counts():
-    input_text = ['this', 'that', 'the', 'other', 'other']
+    input_text = ['this', 'that', 'the', 'other', 'Other']
     actual = aggregation.word_count(input_text)
     expected = {
         'this': 1,
         'that': 1,
         'the': 1,
-        'other': 2
+        'other': 1,
+        'Other': 1
     }
-    assert expected == actual
+    assert actual == expected
+
+
+def test_word_counts_lowercase():
+    input_text = ['this', 'that', 'the', 'other', 'Other']
+    actual = aggregation.word_count(input_text, all_lowercase=True)
+    expected = {
+        'this': 1,
+        'that': 1,
+        'the': 1,
+        'other': 2,
+    }
+    assert actual == expected
 
 
 def test_most_common():
@@ -25,7 +38,7 @@ def test_most_common():
         ('other', 2),
         ('this', 1)
     ]
-    assert expected == actual
+    assert actual == expected
 
 
 ################################################
@@ -33,7 +46,7 @@ def test_most_common():
 ################################################
 
 
-def test_initialisation():
+def test_summarise():
     sentences = {
         'example.txt': [
             "This is some text.",
@@ -70,7 +83,7 @@ def test_initialisation():
         }
     )
 
-    assert expectation == actual
+    assert actual == expectation
 
 
 def test_combine_word_bags():
@@ -86,4 +99,4 @@ def test_combine_word_bags():
     )
     actual = calculator._combine_word_bags()
     expected = ['one', 'two', 'three', 'four']
-    assert expected == actual
+    assert actual == expected

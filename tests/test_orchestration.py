@@ -4,7 +4,7 @@ from src.core import orchestration
 
 
 def test_summarise_directory():
-    """Returns a summary representation of the text found in the directory provided"""
+    """End-to-end test case: a summary of the most common words found in the text inside the directory provided"""
     target_dir = "tests/fixtures/"
     actual = orchestration.summarise_directory(target_dir, limit=2)
     expected = (

@@ -7,7 +7,7 @@ import pytest
 #   Module methods
 #################################
 def test_remove_stop_words():
-    input_text = ['a', 'collection', 'of', 'words', 'some', 'of', 'which', 'should', 'not', 'be', 'included', 'in', 'the', 'output']
+    input_text = ['A', 'collection', 'of', 'words', 'some', 'of', 'which', 'should', 'not', 'be', 'included', 'in', 'the', 'output']
     expectation = ['collection', 'words', 'included', 'output']
     actual = nlp.remove_stop_words(input_text)
     assert actual == expectation

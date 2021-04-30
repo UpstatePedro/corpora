@@ -7,9 +7,17 @@ from typing import Union
 
 from src.core import nlp
 from src.core.aggregation import WordFrequencyCalculator
+from src.core.formatting import WordFrequencyShortFormFormatter
 
+formatters = {
+    'shortform': WordFrequencyShortFormFormatter
+}
 
-def summarise_directory(target_dir: Union[str, pathlib.Path], limit: int = 5) -> tuple:
+def summarise_directory(
+        target_dir: Union[str, pathlib.Path],
+        limit: int = 5,
+        normalise_case: bool = False,
+        format: str = None) -> tuple:
     """Processes a directory
     The summary will be a tuple of dicts, with each element representing the most common words in the corpus
     (in descending order of frequency).
@@ -43,6 +51,8 @@ def summarise_directory(target_dir: Union[str, pathlib.Path], limit: int = 5) ->
 
     :param target_dir: The directory from which to read the text files for summarisation
     :param limit: The number of words to include in the results (sorted in order of frequency of occurrence)
+    :param normalise_case: Boolean flag for whether or not to convert all text to lower case before summarising
+    :param format: Specify a format to modify how the summary results are presented back to the user
     :return: tuple summary of the top words found in the text located in the specified directory
     """
     complete_sentences = {}
@@ -58,7 +68,13 @@ def summarise_directory(target_dir: Union[str, pathlib.Path], limit: int = 5) ->
     # Aggregate the word summaries and collate the output
     wf_calculator = WordFrequencyCalculator(
         sentences_by_document=complete_sentences,
-        words_by_document=words
+        words_by_document=words,
+        all_lowercase=normalise_case
     )
     wf_summary = wf_calculator.summarise(limit=limit)
+
+    if format:
+        formatter = formatters[format](wf_summary)
+        return formatter.format()
+
     return wf_summary
