@@ -6,25 +6,50 @@
 
 ### Python Virtual Environment
 
-This project uses [pipenv](https://pipenv.pypa.io/en/latest/) to manage python dependencies.
+This project is tested against Python 3.9. Other versions may work, but this is not guaranteed.
 
-TODO: install command
+This project uses [pipenv](https://pipenv.pypa.io/en/latest/) to manage python dependencies and create reproducible 
+environments. The instructions below assume you have installed pipenv in your local environment.
 
-run $ import nltk; nltk.download('punkt')
+To install the virtual environment, please run (from the project root):
 
-### Environment variables
+`$ pipenv install`
 
-This project uses the `python-dotenv` package to manage environment variables with ease.
+Once pipenv has created / updated the virtual env dependencies, please run the command below:
 
-### Docker
+`$ pipenv run download-nltk-extras`
 
-Alternatively, if you want to keep your virtualenvs clean, you can run this project using Docker.
+This will download some additional resources that NLTK will use to remove common stop-words from the results.
+
+## Usage
+
+For now, this project provides only a CLI to analyse a local directory containing text files. We expect a flat directory
+structure containing only `.txt` files. eg:
+
+```
+- target directory
+    - example_1.txt
+    - example_2.txt
+    - example_3.txt
+```
 
 #### CLI
 
+The best way to get started with the CLI is to pull up its docs in the terminal:
 
-#### Web API
+`$ python corpora_cli.py --help`
 
-## Using `corpora` to analyse collections of text
+### Typical 
 
-...
+`$ python corpora_cli.py --target_dir ~/path/to/some/text/`
+
+`--limit n` will limit the number of words included in the results to 'n'
+`--format shortform` request different formatting of the output. At present, `shortform` is the only option, and is probably a good place to get started.
+`--normalise_case` include this if you wish to treat words with the same spelling, but different capitalisation, as a single word
+
+## Extensions: what would I do with more time?
+
+1. Accommodate larger corpora that do not fit into memory
+1. Dockerise the project to enable faster startup for new users
+1. Enable users to apply stemming to account for different forms of the same 'base' being used
+1. Provide more options for output formatting (eg. output to csv, json etc.)
