@@ -16,4 +16,4 @@ fire = "*"
 python_version = "3.9"
 
 [scripts]
-download-nltk-punkt = "python -c \"import nltk; nltk.download('punkt')\""
+download-nltk-extras = "python -c \"import nltk; nltk.download('punkt'); nltk.download('stopwords')\""
