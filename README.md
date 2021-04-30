@@ -39,13 +39,21 @@ The best way to get started with the CLI is to pull up its docs in the terminal:
 
 `$ python corpora_cli.py --help`
 
-### Typical 
+### Typical usage
 
 `$ python corpora_cli.py --target_dir ~/path/to/some/text/`
 
 `--limit n` will limit the number of words included in the results to 'n'
 `--format shortform` request different formatting of the output. At present, `shortform` is the only option, and is probably a good place to get started.
 `--normalise_case` include this if you wish to treat words with the same spelling, but different capitalisation, as a single word
+
+```bash
+# Output when providing the `--format shortform` option:
+[
+  {"word": "Word one", "documents": 6, "sentences": 131},
+  {"word": "Word two", "documents": 6, "sentences": 180},
+]
+```
 
 ## Extensions: what would I do with more time?
 
