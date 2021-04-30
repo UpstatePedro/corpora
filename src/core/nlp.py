@@ -15,6 +15,7 @@ def remove_stop_words(words: list[str], stop_words: list[str] = stopwords.words(
 
 
 def filter_words_for_alphanumerics(word_tokens):
+    """Remove non-alphanumeric elements from a list of strings"""
     alphanumeric_words = [word for word in word_tokens if word.isalnum()]
     return alphanumeric_words
 
