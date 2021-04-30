@@ -57,6 +57,7 @@ The best way to get started with the CLI is to pull up its docs in the terminal:
 
 ## Extensions: what would I do with more time?
 
+1. Consider more efficient solutions to the in-memory approach
 1. Accommodate larger corpora that do not fit into memory
 1. Dockerise the project to enable faster startup for new users
 1. Enable users to apply stemming to account for different forms of the same 'base' being used
