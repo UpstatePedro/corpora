@@ -11,14 +11,14 @@ def test_summarise_directory():
         {
             'word': 'bla',
             'documents': {
-                'example.txt': ["It also has many copies of several words: bla, bla, bla, raa, raa, raa."]
+                'example.txt': ["It also has many copies of several words: the, the, the, the, bla, bla, bla, raa, raa, raa."]
             }
         },
         {
             'word': 'raa',
             'documents': {
-                'example.txt': ["It also has many copies of several words: bla, bla, bla, raa, raa, raa."]
+                'example.txt': ["It also has many copies of several words: the, the, the, the, bla, bla, bla, raa, raa, raa."]
             }
         }
     )
-    assert expected == actual
+    assert actual == expected

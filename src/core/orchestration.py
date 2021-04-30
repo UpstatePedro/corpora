@@ -1,12 +1,12 @@
 """
 Orchestration logic for processing text documents.
-Provides the standard API through which ingestion, processing & formatting logic should be called.
+Provides the internal API through which ingestion, processing & formatting logic should be called.
 """
 import pathlib
 from typing import Union
 
+from src.core import nlp
 from src.core.aggregation import WordFrequencyCalculator
-from src.core.nlp import TxtFileTokeniser
 
 
 def summarise_directory(target_dir: Union[str, pathlib.Path], limit: int = 5) -> tuple:
@@ -49,17 +49,11 @@ def summarise_directory(target_dir: Union[str, pathlib.Path], limit: int = 5) ->
     tokenised_sentences = {}
     words = {}
 
-    tokeniser = TxtFileTokeniser(target_dir=target_dir)
+    tokeniser = nlp.TxtFileTokeniser(target_dir=target_dir)
     for filename in tokeniser.corpus_files:
         complete_sentences.update({filename: tokeniser.complete_sentences(filenames=[filename])})
         tokenised_sentences.update({filename: tokeniser.tokenised_sentences(filenames=[filename])})
-        word_tokens = tokeniser.tokenised_words(filenames=[filename])
-        # Remove punctuation tokens from each word bag (assume we do not want these in the results):
-        alphanumeric_words = [word for word in word_tokens if word.isalnum()]
-        # TODO: Need to remove stop words:
-        # from nltk.corpus import stopwords
-        # stopwords.words('english')
-        words.update({filename: alphanumeric_words})
+        words.update({filename: tokeniser.filter_and_tokenise_words(filenames=[filename])})
 
     # Aggregate the word summaries and collate the output
     wf_calculator = WordFrequencyCalculator(
